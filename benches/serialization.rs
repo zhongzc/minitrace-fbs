@@ -18,7 +18,7 @@ fn serizalization(c: &mut Criterion) {
                         let _guard = handle.trace_enable(50u32);
                         for i in 51..100u32 {
                             let _guard = minitrace::new_span(i);
-                            minitrace::property(b"wuhu~fly~");
+                            // minitrace::property(b"wuhu~fly~");
                         }
                     });
 
@@ -30,7 +30,7 @@ fn serizalization(c: &mut Criterion) {
             },
             |trace_result| {
                 let mut builder = flatbuffers::FlatBufferBuilder::new_with_capacity(8192);
-                black_box(minitrace_fbs::serialize_to_fbs_p(&mut builder, &trace_result).unwrap());
+                black_box(minitrace_fbs::serialize_to_fbs(&mut builder, &trace_result).unwrap());
             },
         );
     });

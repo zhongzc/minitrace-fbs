@@ -13,20 +13,19 @@ table SpanSet {
 }
 
 table Properties {
-    span_ids: [uint16];
-    lens: [uint16];
+    span_ids: [uint64];
+    lens: [uint64];
     payload: [ubyte];
 }
 
 enum LinkType: ubyte { Root = 0, Parent, Continue }
-table Span {
-    id: uint16 = 0;
+struct Span {
+    id: uint64 = 0;
     link_type: LinkType = Root;
-    link_id: uint16 = 0;
+    link_id: uint64 = 0;
     begin_cycles: uint64 = 0;
     elapsed_cycles: uint64 = 0;
     event: uint32 = 0;
 }
-
 
 root_type TraceDetails;
