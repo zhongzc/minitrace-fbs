@@ -4,6 +4,13 @@ version = "0.1.0"
 authors = ["zhongzc <zhongzc_arch@outlook.com>"]
 edition = "2018"
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
-
 [dependencies]
+flatbuffers = "0.6.1"
+minitrace = { git = "https://github.com/pingcap-incubator/minitrace-rust.git" }
+
+[dev-dependencies]
+criterion = "0.3"
+
+[[bench]]
+name = "serialization"
+harness = false

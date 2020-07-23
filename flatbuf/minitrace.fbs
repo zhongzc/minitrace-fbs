@@ -1,0 +1,32 @@
+table TraceDetails {
+    start_time_ns: uint64 = 0;
+    elapsed_ns: uint64 = 0;
+    cycles_per_second: uint64 = 0;
+    span_sets: [SpanSet];
+}
+
+table SpanSet {
+    create_time_ns: uint64 = 0;
+    start_time_ns: uint64 = 0;
+    spans: [Span];
+    properties: Properties;
+}
+
+table Properties {
+    span_ids: [uint16];
+    lens: [uint16];
+    payload: [ubyte];
+}
+
+enum LinkType: ubyte { Root = 0, Parent, Continue }
+table Span {
+    id: uint16 = 0;
+    link_type: LinkType = Root;
+    link_id: uint16 = 0;
+    begin_cycles: uint64 = 0;
+    elapsed_cycles: uint64 = 0;
+    event: uint32 = 0;
+}
+
+
+root_type TraceDetails;
