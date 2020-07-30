@@ -2,27 +2,28 @@ table TraceDetails {
     start_time_ns: uint64 = 0;
     elapsed_ns: uint64 = 0;
     cycles_per_second: uint64 = 0;
-    span_sets: [SpanSet];
-}
-
-table SpanSet {
-    create_time_ns: uint64 = 0;
-    start_time_ns: uint64 = 0;
     spans: [Span];
     properties: Properties;
 }
 
 table Properties {
     span_ids: [uint64];
-    lens: [uint64];
+    property_lens: [uint64];
     payload: [ubyte];
 }
 
-enum LinkType: ubyte { Root = 0, Parent, Continue }
+enum State: ubyte { 
+    Root = 0, 
+    Local, 
+    Spawning, 
+    Scheduling,
+    Settle,
+}
+
 struct Span {
     id: uint64 = 0;
-    link_type: LinkType = Root;
-    link_id: uint64 = 0;
+    state: State = Root;
+    related_id: uint64 = 0;
     begin_cycles: uint64 = 0;
     elapsed_cycles: uint64 = 0;
     event: uint32 = 0;
